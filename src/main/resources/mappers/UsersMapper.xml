@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.dao.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.lin.entity.Users">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_regtime" jdbcType="TIMESTAMP" property="userRegtime" />
+    <result column="user_modtime" jdbcType="TIMESTAMP" property="userModtime" />
+    <result column="user_role" jdbcType="VARCHAR" property="userRole" />
+  </resultMap>
+
+    <select id="selectByUserName" resultMap="BaseResultMap">
+      select user_id,user_name,password,user_regtime,user_modtime,user_role
+      from users
+      where user_name=#{userName}
+    </select>
+
+    <update id="updRoleByName" parameterType="String">
+      update users
+      set user_role = 1
+      where user_name=#{userName};
+    </update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.dao.BooksMapper">
+    <resultMap id="BaseResultMap" type="com.lin.entity.Books">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="book_id" jdbcType="INTEGER" property="bookId"/>
+        <result column="book_name" jdbcType="VARCHAR" property="bookName"/>
+        <result column="book_content" jdbcType="VARCHAR" property="bookContent"/>
+        <result column="book_addtime" jdbcType="TIMESTAMP" property="bookAddtime"/>
+        <result column="book_modtime" jdbcType="TIMESTAMP" property="bookModtime"/>
+        <result column="book_author" jdbcType="INTEGER" property="bookAuthor"/>
+    </resultMap>
+
+    <select id="selectAllBooks" resultMap="BaseResultMap">
+        select book_id, book_name, book_content, book_addtime, book_modtime, book_author
+        from books
+    </select>
+    <select id="selectBookById" resultMap="BaseResultMap">
+        select book_id, book_name, book_content, book_addtime, book_modtime, book_author
+        from books
+        where book_id = #{bookId}
+    </select>
+
+    <insert id="addBook" parameterType="com.lin.entity.Books">
+        insert into books(book_name, book_content, book_addtime, book_modtime, book_author)
+        VALUES (#{bookName}, #{bookContent}, #{bookAddtime}, #{bookModtime}, #{bookAuthor})
+    </insert>
+
+    <delete id="deleteBook" parameterType="int">
+        delete
+        from books
+        where book_id = #{bookId}
+    </delete>
+
+    <update id="updateBook" parameterType="com.lin.entity.Books">
+        update books
+        set book_name=#{bookName},
+            book_content=#{bookContent},
+            book_modtime=#{bookModtime},
+            book_author=#{bookAuthor}
+        where book_id = #{bookId}
+    </update>
+
+</mapper>
